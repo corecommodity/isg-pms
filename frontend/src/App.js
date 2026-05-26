@@ -1,46 +1,32 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.png";
-
+import React from "react";
+import bgImage from "./commodities3.jpg";
+import logo from "./corecommlogo.jpg";
 
 function App() {
-  const [message, setMessage] = useState("Loading...");
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("API error");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setMessage(data.message);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setMessage("Error connecting to FastAPI");
-      });
-  }, []);
-
   return (
-    <div className="App">
-      <header
-        className="App-header"
+    <div
+      style={{
+        height: "100vh",
+        width: "100%",
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+      }}
+    >
+      {/* White Top Strip */}
+      <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
+          height: "80px",
+          backgroundColor: "#fff",
         }}
       >
         <img
           src={logo}
           alt="logo"
-          style={{ width: "200px", marginBottom: "20px" }}
+          style={{
+            height: "80px",
+          }}
         />
-        <h1>{message}</h1>
-      </header>
+      </div>
     </div>
   );
 }
