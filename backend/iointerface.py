@@ -26,4 +26,11 @@ class SQLReader(IOInterface):
         df = pd.read_sql(query, self.conn)
         return df
     
+
     
+class CSVReader(IOInterface):
+    
+    account_value = "csv/Account_Value.csv"
+
+    def read(self) -> pd.DataFrame:
+        return pd.read_csv(self.account_value)    
