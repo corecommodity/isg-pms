@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 
-import Allocation2 from "./pages/Allocation2";
-import Requirements1 from "./pages/Requirements1";
+import AccountValue from "./pages/allocation2/AccountValue";
+import Cash from "./pages/allocation2/Cash";
+import FixedIncome from "./pages/allocation2/FixedIncome";
+import CommodityIndex from "./pages/requirements1/CommodityIndex";
 import Positions from "./pages/Positions";
 import Weights from "./pages/Weights";
 import Settings from "./pages/Settings";
@@ -12,7 +14,7 @@ import Settings from "./pages/Settings";
 import bgImage from "./commodities3.jpg";
 
 function App() {
-  const [activeMenu, setActiveMenu] = useState("Allocation2");
+  const [activeMenu, setActiveMenu] = useState("");
 
   return (
     <div
@@ -31,9 +33,25 @@ function App() {
       />
 
       <div style={{ padding: "20px" }}>
-        {activeMenu === "Requirements_1" && <Requirements1 />}
+        {activeMenu && (
+          <div
+            style={{
+              marginBottom: "10px",
+              fontSize: "14px",
+              fontWeight: "600",
+              color: "#2e7d32",
+            }}
+          >
+            {activeMenu}
+          </div>
+        )}
+        
+        {activeMenu === "Commodity Index" && <CommodityIndex />}
 
-        {activeMenu === "Allocation2" && <Allocation2 />}
+        {/* Allocation */}
+        {activeMenu === "Account Value" && <AccountValue />}
+        {activeMenu === "Cash" && <Cash />}
+        {activeMenu === "Fixed Income" && <FixedIncome />}
 
         {activeMenu === "Positions" && <Positions />}
 

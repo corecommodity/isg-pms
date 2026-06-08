@@ -2,15 +2,16 @@ import React, { useState } from "react";
 
 function Navbar({ activeMenu, setActiveMenu }) {
   const [openMenu, setOpenMenu] = useState(null);
+  const [hoveredMenu, setHoveredMenu] = useState(null);
 
   const menus = [
     {
       title: "Requirements",
-      items: ["Requirements_1","Requirements History"]
+      items: ["Commodity Index","Requirements History"]
     },
     {
       title: "Allocation",
-      items: ["Allocation2"],
+      items: ["Account Value", "Cash", "Fixed Income", "Sectors (%)"],
     },
     {
       title: "Positions",
@@ -41,23 +42,42 @@ function Navbar({ activeMenu, setActiveMenu }) {
       {menus.map((menu, index) => (
         <div
           key={menu.title}
+          onMouseEnter={() => setHoveredMenu(index)}
+          onMouseLeave={() => setHoveredMenu(null)}
+          onClick={() => setOpenMenu(openMenu === index ? null : index)}
           style={{
             position: "relative",
             cursor: "pointer",
           }}
-          onClick={() =>
-            setOpenMenu(openMenu === index ? null : index)
-          }
         >
           <span
             style={{
               fontSize: "12px",
-              fontWeight: "600",
+
+              fontWeight:
+                menu.items.includes(activeMenu)
+                  ? "700"
+                  : "600",
+
               textTransform: "uppercase",
+
               letterSpacing: "0.8px",
-              color: "#555",
-              paddingBottom: "4px",
+
+              color:
+                menu.items.includes(activeMenu)
+                  ? "#2e7d32"
+                  : "#555",
+
+              borderBottom:
+                menu.items.includes(activeMenu)
+                  ? "3px solid #2e7d32"
+                  : hoveredMenu === index
+                  ? "3px solid #615f5f"
+                  : "3px solid transparent",
+
+              paddingBottom: "12px",
             }}
+
           >
             {menu.title} ▼
           </span>

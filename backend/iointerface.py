@@ -14,11 +14,19 @@ class IOInterface(ABC):
 class SQLReader(IOInterface):
 
     def __init__(self):
+        # self.conn = pyodbc.connect(
+        #     "DRIVER={ODBC Driver 17 for SQL Server};"
+        #     "SERVER=CSMBHUL1141\\SQLEXPRESS;"
+        #     "DATABASE=jam;"
+        #     "Trusted_Connection=yes;"
+        # )
         self.conn = pyodbc.connect(
             "DRIVER={ODBC Driver 17 for SQL Server};"
-            "SERVER=CSMBHUL1141\\SQLEXPRESS;"
+            "SERVER=host.docker.internal,1433;"
             "DATABASE=jam;"
-            "Trusted_Connection=yes;"
+            "UID=sa;"
+            "PWD=StrongPassword123!;"
+            "TrustServerCertificate=yes;"
         )
 
     def read(self) -> pd.DataFrame:
@@ -27,10 +35,13 @@ class SQLReader(IOInterface):
         return df
     
 
-    
 class CSVReader(IOInterface):
-    
-    account_value = "csv/Account_Value.csv"
 
-    def read(self) -> pd.DataFrame:
-        return pd.read_csv(self.account_value)    
+    files = {
+        "account_value": "csv/Account_Value.csv",
+        "cash": "csv/cash.csv",
+        "fixed_income": "csv/Fixed_Income.csv",
+    }
+
+    def read(self, report_name: str) -> pd.DataFrame:
+        return pd.read_csv(self.files[report_name])
