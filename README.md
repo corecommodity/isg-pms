@@ -47,3 +47,20 @@ Portfolio Management System
 * Backend uses FastAPI
 * Frontend uses React
 
+## 🐳 Docker Setup
+
+### Build Docker Images
+
+Build the backend and frontend images:
+
+```bash
+docker compose build
+```
+
+### Start Containers
+
+Start all services:
+
+```bash
+docker compose up
+```
