@@ -12,7 +12,7 @@ function AccountValue() {
   const [tableData, setTableData] = useState([]);
   const gridRef = useRef();
   const fetchData = () => {
-    fetch("http://127.0.0.1:8000/account_value")
+    fetch("http://127.0.0.1:8541/account_value")
       .then((res) => res.json())
       .then((data) => setTableData(data))
       .catch((err) => console.error(err));

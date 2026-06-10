@@ -14,7 +14,7 @@ function Cash() {
   const gridRef = useRef();
 
   const fetchData = () => {
-    fetch("http://127.0.0.1:8000/cash")
+    fetch("http://127.0.0.1:8541/cash")
       .then((res) => res.json())
       .then((data) => setTableData(data))
       .catch((err) => console.error(err));

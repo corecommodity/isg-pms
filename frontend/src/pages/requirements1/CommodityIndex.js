@@ -14,7 +14,7 @@ function CommodityIndex() {
   const gridRef = useRef();
 
   const fetchData = () => {
-    fetch("http://127.0.0.1:8000/commodity_index")
+    fetch("http://127.0.0.1:8541/commodity_index")
       .then((res) => res.json())
       .then((data) => setTableData(data))
       .catch((err) => console.error(err));

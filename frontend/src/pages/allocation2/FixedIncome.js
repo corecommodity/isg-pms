@@ -14,7 +14,7 @@ function FixedIncome() {
   const gridRef = useRef();
 
   const fetchData = () => {
-    fetch("http://127.0.0.1:8000/fixed_income")
+    fetch("http://127.0.0.1:8541/fixed_income")
       .then((res) => res.json())
       .then((data) => setTableData(data))
       .catch((err) => console.error(err));
