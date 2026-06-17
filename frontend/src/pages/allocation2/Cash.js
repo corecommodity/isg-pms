@@ -3,7 +3,7 @@ import GridToolbar from "../../components/GridToolbar";
 import JqxGrid from "jqwidgets-scripts/jqwidgets-react-tsx/jqxgrid";
 import JSZip from "jszip";
 
-import "jqwidgets-scripts/jqwidgets/styles/jqx.base.css";
+import "jqwidgets-scripts/jqwidgets/styles/jqx.classic.css";
 import "jqwidgets-scripts/jqwidgets/jqxdata.export";
 import "jqwidgets-scripts/jqwidgets/jqxexport";
 
@@ -12,9 +12,9 @@ window.JSZip = JSZip;
 function Cash() {
   const [tableData, setTableData] = useState([]);
   const gridRef = useRef();
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const fetchData = () => {
-    fetch("http://127.0.0.1:8541/cash")
+    fetch(`${API_URL}/cash`)
       .then((res) => res.json())
       .then((data) => setTableData(data))
       .catch((err) => console.error(err));
@@ -22,6 +22,7 @@ function Cash() {
 
   useEffect(() => {
     fetchData();
+
   }, []);
 
   const exportToExcel = () => {
@@ -67,28 +68,44 @@ function Cash() {
   ];
 
   return (
-    <div>
-      <div style={{ marginBottom: "5px" }}>
-        <GridToolbar
-          onFetch={fetchData}
-          onExport={exportToExcel}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "10px",
+      }}
+    >
+      <div
+        style={{
+          width: "1100px",
+          background: "#f5f5f5",
+          border: "1px solid #d0d0d0",
+          borderRadius: "8px",
+          overflow: "hidden"
+        }}
+      >
+        <div style={{ marginBottom: "5px" }}>
+          <GridToolbar
+            onFetch={fetchData}
+            onExport={exportToExcel}
+          />
+        </div>
+
+        <JqxGrid
+          ref={gridRef}
+          width={"100%"}
+          height={260}
+          source={dataAdapter}
+          columns={columns}
+          pageable={true}
+          sortable={true}
+          filterable={true}
+          columnsresize={true}
+          rowsheight={20}
+          columnsheight={22}
+          altrows={true}
         />
       </div>
-
-      <JqxGrid
-        ref={gridRef}
-        width={"90%"}
-        height={260}
-        source={dataAdapter}
-        columns={columns}
-        pageable={true}
-        sortable={true}
-        filterable={true}
-        columnsresize={true}
-        rowsheight={24}
-        columnsheight={28}
-        altrows={true}
-      />
     </div>
   );
 }

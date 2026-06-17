@@ -14,6 +14,8 @@ import Settings from "./pages/Settings";
 import bgImage from "./commodities3.jpg";
 
 function App() {
+  console.log("App loaded");
+  console.log("API URL:", process.env.REACT_APP_API_URL);
   const [activeMenu, setActiveMenu] = useState("");
 
   return (
@@ -32,14 +34,14 @@ function App() {
         setActiveMenu={setActiveMenu}
       />
 
-      <div style={{ padding: "20px" }}>
+      <div style={{ padding: "10px" }}>
         {activeMenu && (
           <div
             style={{
-              marginBottom: "10px",
+              marginBottom: "8px",
               fontSize: "14px",
-              fontWeight: "600",
-              color: "#2e7d32",
+              fontWeight: "500",
+              color: "#444",
             }}
           >
             {activeMenu}

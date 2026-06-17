@@ -2,17 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import GridToolbar from "../../components/GridToolbar";
 import JqxGrid from "jqwidgets-scripts/jqwidgets-react-tsx/jqxgrid";
 import JSZip from "jszip";
-import "jqwidgets-scripts/jqwidgets/styles/jqx.base.css";
+import "jqwidgets-scripts/jqwidgets/styles/jqx.classic.css";
 import "jqwidgets-scripts/jqwidgets/jqxdata.export";
 import "jqwidgets-scripts/jqwidgets/jqxexport";
+
 
 window.JSZip = JSZip;
 
 function AccountValue() {
   const [tableData, setTableData] = useState([]);
   const gridRef = useRef();
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const fetchData = () => {
-    fetch("http://127.0.0.1:8541/account_value")
+    fetch(`${API_URL}/account_value`)
       .then((res) => res.json())
       .then((data) => setTableData(data))
       .catch((err) => console.error(err));
@@ -60,30 +63,41 @@ function AccountValue() {
   ];
 
   return (
-    <div
-    
-    >
-    <GridToolbar
-      onFetch={fetchData}
-      onExport={exportToExcel}
-    />
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      marginTop: "10px",
+    }}
+  >
+    <div style={{ width: "1100px",
+        background: "#f5f5f5",
+        border: "1px solid #d0d0d0",
+        borderRadius: "8px",
+        overflow: "hidden",}}>
+
+      <GridToolbar
+        onFetch={fetchData}
+        onExport={exportToExcel}
+      />
 
       <JqxGrid
-      ref={gridRef}
-      width={"85%"}
-      height={260}
-      source={dataAdapter}
-      columns={columns}
-      pageable={true}
-      sortable={true}
-      filterable={true}
-      columnsresize={true}
-      rowsheight={24}
-      columnsheight={28}
-      altrows={true}
-    />
+        ref={gridRef}
+        width={"100%"}
+        height={260}
+        source={dataAdapter}
+        columns={columns}
+        pageable={true}
+        sortable={true}
+        filterable={true}
+        columnsresize={true}
+        rowsheight={20}
+        columnsheight={22}
+        altrows={true}
+      />
     </div>
-  );
+  </div>
+);
 }
 
 export default AccountValue;

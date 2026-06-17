@@ -12,14 +12,16 @@ window.JSZip = JSZip;
 function CommodityIndex() {
   const [tableData, setTableData] = useState([]);
   const gridRef = useRef();
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const fetchData = () => {
-    fetch("http://127.0.0.1:8541/commodity_index")
+    fetch(`${API_URL}/commodity_index`)
       .then((res) => res.json())
       .then((data) => setTableData(data))
       .catch((err) => console.error(err));
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchData();
   }, []);
